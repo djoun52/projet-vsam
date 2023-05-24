@@ -1,0 +1,30 @@
+//API3ASS2 JOB CLASS=A,MSGCLASS=H,NOTIFY=&SYSUID,TIME=(,1)
+//         JCLLIB ORDER=&SYSUID..SOURCE.JCL
+//*
+//*
+//STEP01    EXEC PGM=SORT
+//SYSOUT    DD SYSOUT=H
+//SORTIN    DD DSN=API3.COB.MVTPROJ,DISP=SHR
+//SORTOUT   DD DSN=API3.COB.MVTPROJ2,DISP=(NEW,CATLG), 
+//             SPACE=(TRK,(1,1)),LRECL=80,BLKSIZE=800,RECFM=(FB)
+//SYSIN     DD *
+  SORT FIELDS=(1,6,CH,A)    
+//*
+//STEP2    EXEC PGM=IDCAMS
+//SYSPRINT DD   SYSOUT=H
+//SYSIN    DD   *
+     DELETE         API3.COB.FMVTSE
+     DEF CL   (NAME(API3.COB.FMVTSE)                   -
+               CISZ(4096)   /* LONG BLOC           */ -
+               NIXD         /* NON  INDEXED = ESDS */ -
+               RECSZ(80 80) /* LONGEUR  RECORD     */ -
+               TRK (1  1)   /* 1 PRIM 1 SECND      */ -
+               )                                      -
+         DATA  (NAME(API3.COB.FMVTSE.DATA))
+//*
+//STEP03   EXEC PGM=IDCAMS
+//SYSPRINT DD   SYSOUT=H
+//ENTREE   DD   DSN=API3.COB.MVTPROJ2,DISP=(OLD,DELETE)
+//SYSIN    DD   *
+ REPRO IFILE(ENTREE) ODS(API3.COB.FMVTSE) REPLACE
+/*
