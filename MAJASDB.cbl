@@ -29,18 +29,6 @@
        77  CODEDG         PIC X VALUE 'D'.
        77  CODECL         PIC X VALUE 'L'.
        01  TIM            PIC X(8).
-       01  TABLEAU-ASSUR.
-           05 LIGNE OCCURS 99.
-             10 TB-MATRICUL   PIC X(6).
-             10 TB-NM-PRNM    PIC X(20).
-             10 TB-ADSS       PIC X(18).
-             10 TB-CP         PIC 9(5).
-             10 TB-VLL        PIC X(12).
-             10 TB-TPV        PIC X.
-             10 TB-PRMBS      PIC 9(4)V99.
-             10 TB-PRMT       PIC X.
-             10 TB-TAUX       PIC X(2).
-             10               PIC X(9).
        77  CPT-MT             PIC 99.
        77  CPT-GA             PIC 99.
        77  CPT-MW             PIC 99.
